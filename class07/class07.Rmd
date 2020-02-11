@@ -2,7 +2,7 @@
 title: "class07.Rmd"
 author: "Christopher Cheng"
 date: "1/28/2020"
-output: html_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
