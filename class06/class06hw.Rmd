@@ -1,0 +1,35 @@
+---
+title: "class06hw"
+author: "Christopher Cheng"
+date: "1/28/2020"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# The proteinActivityPlot function takes in a 4-letter protein identifier as it's only argument. Accesses pdb database and returns data frame of all protein information stored in protein. protein is then passed into trim.pdb which saves only the A chain and a character vector of atom names into protein.chainA. This trimmed down vector then subsets out the b column of vector "atom" and saves it to protein.b. This is then plotted and returns a line plot that displays the Bfactor activity of a particular protein.   
+
+library(bio3d)
+
+proteinActivityPlot <- function(x){
+  protein <- read.pdb(x)
+  protein.chainA <- trim.pdb(protein, chain = "A", elety = "CA")
+  protein.b <- protein.chainA$atom$b
+  plotb3(protein.b, sse = protein.chainA, typ = "l", ylab = "Bfactor")
+}
+```
+
+**Testing the function**
+```{r}
+# Calling the optimized function
+proteinActivityPlot("4AKE")
+proteinActivityPlot("1AKE")
+proteinActivityPlot("1E4Y")
+```
+```
+

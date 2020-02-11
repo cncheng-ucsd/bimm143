@@ -1,0 +1,212 @@
+---
+title: "class07.Rmd"
+author: "Christopher Cheng"
+date: "1/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+These are our functions, look here
+```{r}
+#Functions
+
+is_both_na <- function(x,y){
+  if(length(x) != length(z)){
+    stop("Your inputs aren't the same length!")
+  }
+  is.na(x) & is.na(y)
+}
+
+rescale_new <- function(x, y) {
+  ## Print some info on where NA's are as well as the number of them 
+  if(length(x) != length(y)) {
+    stop("Input x and y should be vectors of the same length", call.=FALSE)
+  }
+  na.in.both <- ( is.na(x) & is.na(y) )
+  na.number <- sum(na.in.both)
+  na.which <- which(na.in.both)
+  
+  message("Found ", na.number, " NA's at position(s):", 
+          paste(na.which, collapse=", ") ) 
+  
+  return( list(number=na.number, which=na.which) )
+}
+
+rescale_new(x,y)
+
+
+rescale <- function(x, na.rm=TRUE, plot=FALSE, ...) {
+  # Our rescale function from the end of lecture 9
+
+  if(na.rm) {
+    rng <-range(x, na.rm=TRUE)
+  } else {
+    rng <-range(x)
+  }
+
+  answer <- (x - rng[1]) / (rng[2] - rng[1])
+  if(plot) { 
+    plot(answer, ...) 
+  }
+
+  return(answer)
+}
+
+
+rescale2 <- function(x, na.rm=TRUE, plot=FALSE, ...) {
+  # Our rescale function from lecture 10
+df1dd
+  if( !is.numeric(x) ) {
+    stop("Input x should be numeric", call.=FALSE)
+  }
+  
+  rng <-range(x, na.rm=TRUE)
+
+  answer <- (x - rng[1]) / (rng[2] - rng[1])
+  if(plot) { 
+    plot(answer, ...) 
+  }
+
+  return(answer)
+}
+```
+
+#Test fail
+```{r}
+rescale(c(1,10,"string"))
+```
+
+#Test succeed
+```{r}
+rescale2(c(1,10,"string"))
+```
+
+
+```{r}
+x <- c(1,2,NA,3,NA)
+y <- c(NA,3,NA,3,4)
+z <- c(1,1)
+is_both_na(x,z)
+```
+
+
+```{r}
+x <- df1$IDs
+y <- df2$IDs
+
+intersect(x,y)
+
+x[x %in% y]
+
+y[y %in% x]
+
+cbind(x[x %in% y], y[y %in% x])
+```
+
+Making a function
+```{r}
+gene_intersect3 <- function(df1, df2, gene.colname = "IDs") {
+  cbind(df1[df1[,gene.colname] %in% df2[,gene.colname],],
+  exp2 = df2[df2[,gene.colname] %in%
+  df1[,gene.colname], "exp"])
+}
+```
+
+```{r}
+gene.colname = "IDs"
+df1[,gene.colname]
+```
+
+```{r}
+gene_intersect4<- function(df1, df2, gene.colname = "IDs") {
+ df1.name <- df1[,gene.colname]
+ df2.name <- df2[,gene.colname]
+ 
+ df1.inds <- df1.name %in% df2.name
+ df2.inds <- df2.name %in% df1.name
+ 
+ cbind(df1[df1.inds,], exp2 = df2[df2.inds, "exp"])
+  
+}
+```
+
+
+
+
+ggplot Explorations
+
+```{r}
+dim(iris)
+
+class(iris)
+
+head(iris)
+
+levels(iris$Species)
+```
+
+
+Aesthetics
+```{r}
+myplot <- ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) #initialize a ggplot object
+class(myplot)
+
+```
+
+Geometry
+```{r}
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) + geom_point(size = 3)
+```
+
+Geometry w/Color
+```{r}
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) + geom_point(size = 3)
+```
+
+Geometry w/Color and Shapes
+```{r}
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) + geom_point(aes(shape = Species), size = 3)
+```
+
+Geometry w/Color and Shapes and relationship lines
+```{r}
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) + geom_point(aes(shape = Species), size = 3) + geom_smooth(method = "lm")
+```
+
+
+Distribution of sepal length
+```{r}
+ggplot(iris, aes(Sepal.Length, fill = Species)) +
+  geom_bar(stat = 'count')
+```
+
+Modifications to Bar
+```{r}
+ggplot(iris, aes(Sepal.Length, fill = Species)) +
+  geom_bar(stat = 'count', alpha = 0.7)
+```
+
+```{r}
+ggplot(iris, aes(Sepal.Length, fill = Species)) +
+  geom_bar(stat = 'count', alpha = 0.7, binwidth = 0.3)
+```
+
+Change the themes
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
