@@ -319,6 +319,3 @@ plot(g, vertex.size=v.size, vertex.label=NA)
 
 
 
-
-
-
