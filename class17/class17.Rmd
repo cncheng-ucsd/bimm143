@@ -1,0 +1,238 @@
+---
+title: "Class 17: Metagenomics co-occurence networks"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this analysis we are using a Tara Ocean data and we have data from the bacterial dataset (Sunagawa et al. 2015) and also from the viral dataset (Brum et al. 2015). They have been examined in Lima-Mendez et al. (2015) and we have used the original relative abundances to visualize the data. Data were retrieved from: http://www.raeslab.org/companion/ocean-interactome.html
+
+## Setup
+First setup the packages we need.These include **igraph** from CRAN and **RCy3** from bioconductor.
+
+I installed these with **install.packages("igraph")** and **BiocManager::install("RCy3")**. 
+
+```{r}
+# Loading Packages
+library(RCy3)
+library(igraph)
+library(RColorBrewer)
+```
+
+```{r}
+# Testing connection to Cytoscape. Note that cytoscape must be running
+cytoscapePing()
+```
+
+```{r}
+# Checking version
+cytoscapeVersionInfo()
+```
+
+
+We can test things further by making a small network (here in igraph format as used by the R igraph package) and sending it to Cytoscape:
+
+```{r}
+g <- makeSimpleIgraph()
+createNetworkFromIgraph(g, "myGraph")
+```
+
+We can include this Cytoscape rendered network image in our report with the following code:
+
+```{r}
+fig <- exportImage(filename = "demo", type = "png", height = 350)
+
+knitr::include_graphics("./demo.png")
+```
+
+
+## Switch Styles
+Cytoscape provides a number of canned visual styles. The code below explores some of these styles. For example check out the marquee style!
+
+```{r}
+setVisualStyle("Marquee")
+```
+
+
+```{r}
+fig <- exportImage(filename="demo_marquee", type="png", height=350)
+
+knitr::include_graphics("./demo_marquee.png")
+```
+
+
+We can also plot this simple network in R itself
+```{r}
+plot(g)
+```
+
+## Read our metagenomics data
+
+We will read in a species co-occurrence matrix that was calculated using Spearman Rank coefficient. (see reference Lima-Mendez et al. (2015) for details).
+
+```{r}
+# scripts for processing located in "inst/data-raw/"
+prok_vir_cor <- read.delim("./data/virus_prok_cor_abundant.tsv", stringsAsFactors = FALSE)
+
+# Have a peek at the first 6 rows
+head(prok_vir_cor)
+```
+
+Here we will use the igraph package to convert the co-occurrence dataframe into a network that we can send to Cytoscape. In this case our graph is undirected (so we will set directed = FALSE) since we do not have any information about the direction of the interactions from this type of data.
+
+```{r}
+g <- graph.data.frame(prok_vir_cor, directed = FALSE)
+```
+
+We can check the class of our new object g and see that is is of class igraph. Therefor the `print.igraph()` function will be called when we type it’s name allowing us have an informative overview of the graph structure.
+
+```{r}
+class(g)
+g
+```
+
+Our current graph is a little too dense in terms of node labels etc. to have a useful ‘default’ plot figure. But we can have a look anyway.
+```{r}
+plot(g)
+```
+
+This is a hot-mess! Lets turn of the blue text labels
+```{r}
+plot(g, vertex.label = NA)
+```
+
+The nodes/vertex are too big. Lets make them smaller…
+```{r}
+plot(g, vertex.size = 3, vertex.label = NA)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

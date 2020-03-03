@@ -42,3 +42,60 @@ write.pdb(lig, file = "1hsg_ligand.pdb")
 
 ```
 
+# Section 2.3: Inspecting my docking results
+```{r}
+library(bio3d)
+
+res <- read.pdb("all.pdbqt", multi = TRUE)
+
+write.pdb(res, "results.pdb")
+```
+
+Assessing results using RMSD
+```{r}
+# res <- read.pdb("all.pdbqt", multi = TRUE)
+
+ori <- read.pdb("ligand.pdbqt")
+
+rmsd(ori, res)
+```
+
+
+## Section 3: Exploring the conformational dynamics of protiens
+
+# 3.1 Normal Mode Analysis (NMA)
+```{r}
+library(bio3d)
+pdb <- read.pdb("1HEL")
+modes <- nma(pdb)
+plot(modes, sse = pdb)
+```
+
+
+Visualize NMA Results
+```{r}
+mktrj(modes, mode = 7, file = "nma_7.pdb")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
