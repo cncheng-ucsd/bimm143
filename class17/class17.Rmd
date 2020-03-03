@@ -108,7 +108,93 @@ The nodes/vertex are too big. Lets make them smaller…
 plot(g, vertex.size = 3, vertex.label = NA)
 ```
 
+To send this network to Cytoscape we can use:
 
+```{r}
+createNetworkFromIgraph(g, "myIgraph")
+```
+
+
+## Network Querys
+```{r}
+V(g)
+E(g)
+
+```
+
+## Network Community Detection
+Community structure detection algorithms try to find dense sub-graphs within larger network graphs (i.e. clusters of well connected nodes that are densely connected themselves but sparsely connected to other nodes outside the cluster) . Here we use the classic Girvan & Newman betweenness clustering method. The igraph package has lots of different community detection algorithms (i.e. different methods for finding communities).
+
+```{r}
+cb <- cluster_edge_betweenness(g)
+```
+
+```{r}
+cb
+```
+
+```{r}
+plot(cb, y=g, vertex.label=NA,  vertex.size=3)
+```
+
+
+You can extract a cluster/community membership vector for further inspection with the membership() function:
+```{r}
+head(membership(cb))
+```
+
+
+## Node degree
+
+The degree of a node or vertex is its most basic structural property, the number of its adjacent edges. Here we calculate and plot the node degree distribution.
+
+```{r}
+# Calculate and plot node degree of our network
+d <- degree(g)
+hist(d, breaks=30, col="lightblue", main ="Node Degree Distribution")
+```
+
+
+For the `degree_distribution()` function a numeric vector of the same length as the maximum degree plus one is returned. The first element is the relative frequency zero degree vertices, the second vertices with degree one, etc.
+```{r}
+plot(degree_distribution(g), type = "h")
+```
+
+
+## Centrality analysis
+Centrality gives an estimation on how important a node or edge is for the connectivity (or the information flow) of a network. It is a particularly useful parameter in signaling networks and it is often used when trying to find drug targets for example.
+
+Centrality analysis often aims to answer the following question: Which nodes are the most important and why?
+
+```{r}
+pr <- page_rank(g)
+head(pr$vector)
+```
+
+
+Lets plot our network with nodes size scaled via this page rank centrality scores.
+
+```{r}
+# Make a size vector btwn 2 and 20 for node plotting size
+
+v.size <- BBmisc::normalize(pr$vector, range=c(2,20), method="range")
+plot(g, vertex.size=v.size, vertex.label=NA)
+```
+
+
+One of the simplest centrality scores is of course degree that we calculated previously and stored as the object d. Lets plot this one out also
+```{r}
+v.size <- BBmisc::normalize(d, range=c(2,20), method="range")
+plot(g, vertex.size=v.size, vertex.label=NA)
+```
+
+
+Another very common centrality score is betweenness. The vertex and edge betweenness are (roughly) defined by the number of geodesics (shortest paths) going through a vertex or an edge.
+```{r}
+b <- betweenness(g)
+v.size <- BBmisc::normalize(b, range=c(2,20), method="range")
+plot(g, vertex.size=v.size, vertex.label=NA)
+```
 
 
 
