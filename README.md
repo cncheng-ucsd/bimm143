@@ -4,6 +4,10 @@
 This is my repository of classwork from [BIMM-143](https://bioboot.github.io/bimm143_W20/) winter 2020 quarter at UC San Diego.
 
 ## Index of Material
+- Class 01: [Introduction to Bioinformatics](https://bioboot.github.io/bimm143_W20/class-material/lecture1-BIMM143-large.pdf)
+- Class 02: [Sequence Alignment Fundamentals, Algorithms, and Applications](https://bioboot.github.io/bimm143_W20/class-material/lecture2-BIMM143-large.pdf)
+- Class 03: [Advance Sequence Alignment and Database Searching](https://bioboot.github.io/bimm143_W20/class-material/lecture3-BIMM143-large.pdf)
+- Class 04: [Bioinformatics Data Analysis with R](https://bioboot.github.io/bimm143_W20/class-material/lecture4-BIMM143-large.pdf)
 - Class 05: [Data Exploration and Visualization in R](https://github.com/cncheng-ucsd/bimm143/tree/master/class05)
 - Class 06: [Why,When,and How of Writing Our Own R Functions](https://github.com/cncheng-ucsd/bimm143/tree/master/class06)
 - Class 07: [Bioinformatics R Packages from CRAN and BioConductor](https://github.com/cncheng-ucsd/bimm143/tree/master/class07)
